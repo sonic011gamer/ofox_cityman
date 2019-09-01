@@ -1,6 +1,8 @@
 #
 # Copyright (C) 2017 The Android Open-Source Project
 #
+# Copyright (C) 2019-2020 OrangeFox Recovery Project
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -13,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+LOCAL_PATH := device/xiaomi/libra
 
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_SMP := true
@@ -32,9 +36,29 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x02000000
-TARGET_PREBUILT_KERNEL := device/xiaomi/libra/Image-dtb
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 androidboot.selinux=permissive
+
+ifeq ($(FOX_BUILD_FULL_KERNEL_SOURCES),1111)
+   BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+   TARGET_KERNEL_CONFIG := libra_defconfig
+   TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
+else
+   TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+ifeq ($(FOX_USE_STOCK_KERNEL),1)
+   TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image-twrp.gz-dtb
+   # this twrp kernel has touchscreen issues
+endif
+PRODUCT_COPY_FILES += \
+    $(TARGET_PREBUILT_KERNEL):kernel
+endif
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
+TW_DEFAULT_LANGUAGE := en
+#
+# DJ9 - 17 July 2019
+# !!! don't enable this - it will cause spontaneous reboots in some locales !!!
+# TW_EXTRA_LANGUAGES := true
+#
 
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 TARGET_BOARD_PLATFORM := msm8992
@@ -63,6 +87,5 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 
 DEVICE_RESOLUTION := 1080x1920
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TARGET_RECOVERY_FSTAB = device/xiaomi/libra/recovery.fstab
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TW_EXTRA_LANGUAGES := true
+#
