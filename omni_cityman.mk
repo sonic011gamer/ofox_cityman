@@ -19,8 +19,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_NAME := omni_libra
-PRODUCT_DEVICE := libra
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Mi4c
-PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_NAME := omni_cityman
+PRODUCT_DEVICE := cityman
+PRODUCT_BRAND := Microsoft
+PRODUCT_MODEL := Lumia 950 XL
+PRODUCT_MANUFACTURER := Microsoft

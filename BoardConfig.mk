@@ -16,7 +16,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/xiaomi/libra
+LOCAL_PATH := device/microsoft/cityman
 
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_SMP := true
@@ -37,12 +37,12 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x02000000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-7 androidboot.selinux=permissive
 
 ifeq ($(FOX_BUILD_FULL_KERNEL_SOURCES),1111)
    BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-   TARGET_KERNEL_CONFIG := libra_defconfig
-   TARGET_KERNEL_SOURCE := kernel/xiaomi/libra
+   TARGET_KERNEL_CONFIG := lineageos_bullhead_defconfig
+   TARGET_KERNEL_SOURCE := kernel/microsoft/talkman
 else
    TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
 ifeq ($(FOX_USE_STOCK_KERNEL),1)
@@ -61,8 +61,8 @@ TW_DEFAULT_LANGUAGE := en
 #
 
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-TARGET_BOARD_PLATFORM := msm8992
-TARGET_BOOTLOADER_BOARD_NAME := msm8992
+TARGET_BOARD_PLATFORM := msm8994
+TARGET_BOOTLOADER_BOARD_NAME := msm8994
 
 TARGET_HW_DISK_ENCRYPTION := true
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
@@ -85,7 +85,7 @@ TARGET_RECOVERY_QCOM_RTC_FIX := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-DEVICE_RESOLUTION := 1080x1920
+DEVICE_RESOLUTION := 1440x2560
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 #
